@@ -73,7 +73,8 @@ namespace ConsoleApp1
                 Console.WriteLine("상점\r\n필요한 아이템을 얻을 수 있는 상점입니다.\r\n\r\n[보유 골드]\r\n800 G\r\n");
                 Console.WriteLine("[아이템 목록]");
                 Console.WriteLine("1. 아이템 구매\r\n0. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
-
+                ItemManager.Instance.itemList.
+            
             }
            
         
