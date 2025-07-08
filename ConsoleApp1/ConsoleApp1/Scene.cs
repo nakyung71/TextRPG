@@ -90,7 +90,7 @@ namespace RtanRPG
         public static void LoadShop()
         {
             Console.Clear();
-            Console.WriteLine($"상점\r\n필요한 아이템을 얻을 수 있는 상점입니다.\r\n\r\n[보유 골드]\r\n{currentPlayer.Gold} G\r\n\r\n[아이템 목록]\r\n");
+            Console.WriteLine($"상점\r\n필요한 아이템을 얻을 수 있는 상점입니다.\r\n\r\n[보유 골드]\n{currentPlayer.Gold} G\r\n\r\n[아이템 목록]\r\n");
 
             foreach (Item a in items.itemList)
             {

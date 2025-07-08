@@ -44,6 +44,7 @@ namespace RtanRPG
         public int Defence = 0;
         public string Description = "";
         public int Price = 0;
+        public int Equip = 0;
 
 
     }

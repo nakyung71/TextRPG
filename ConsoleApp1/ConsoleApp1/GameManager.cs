@@ -81,7 +81,11 @@ namespace RtanRPG
                 Console.WriteLine($"아이템: {inputSellingItemName}을/를 판매하였습니다");
                 Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
                 Console.WriteLine($"현재 보유중인 금액은 {Scene.currentPlayer.Gold} G 입니다");
-                Console.ReadKey();
+                if(foundInventory.Equip==1)
+                {
+                    foundInventory.Equip = 0;
+                }
+                else Console.ReadKey();
             }
             else
             {
@@ -90,6 +94,27 @@ namespace RtanRPG
                 Console.ReadKey();
                 Scene.LoadShop();
             }
+        }
+        public static void EquipItem()
+        {
+            Console.WriteLine("장착하고 싶은 아이템을 선택하세요");
+            string inputEquipItemName=Console.ReadLine();
+            Item foundEquipItem= Scene.inventory.inventoryList.Find(h=>h.Name== inputEquipItemName);
+            if (foundEquipItem != null)
+            {
+                foundEquipItem.Equip = 1;
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다\n인벤토리 화면으로 돌아갑니다");
+                Console.ReadKey(true);
+                Scene.LoadInventory();
+            }
+
+        }
+        public static void UnEquipItem()
+        {
+            console
         }
 
         
