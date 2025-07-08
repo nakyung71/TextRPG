@@ -8,6 +8,7 @@ namespace RtanRPG
     {
         public static Player currentPlayer = new Player();
         public static ItemManager items = new ItemManager();
+        public static Inventory inventory = new Inventory();
         
         
         //여기서 참조를 받고(시작할때는 참조값이 없으니까)

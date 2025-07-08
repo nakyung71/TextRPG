@@ -21,9 +21,18 @@ namespace RtanRPG
             if (foundItem != null )
             {
                 Console.WriteLine($"{foundItem.Name} 을 정말 구매하시겠습니까?");
+                Console.WriteLine("1. 예 \r\n2. 아니요");
 
                 Console.WriteLine("");
                 bool canBuy = Scene.currentPlayer.Gold >= foundItem.Price;
+                if( canBuy )
+                {
+                    Scene.inventory.AddItem(foundItem);
+                }
+                else
+                {
+                    Console.WriteLine("골드가 부족합니다");
+                }
 
 
             }
@@ -47,6 +56,8 @@ namespace RtanRPG
         {
 
         }
+
+        
 
 
     }

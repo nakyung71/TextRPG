@@ -26,9 +26,11 @@ namespace RtanRPG
     }
     public class Inventory
     {
-        List<Item> inventory= new List<Item>();
-        public Inventory()
+        List<Item> inventoryList= new List<Item>();
+        public void AddItem(Item item)
         {
+            inventoryList.Add(item);
+            Console.WriteLine($"'{item.Name}' 이 인벤토리에 추가되었습니다.");
 
         }
         //여기에도 리스트 만들어서 구매하면 여기에 add하면 되겠네
