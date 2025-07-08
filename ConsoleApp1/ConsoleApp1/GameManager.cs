@@ -80,7 +80,7 @@ namespace RtanRPG
             Item foundInventory = Scene.inventory.inventoryList.Find(j=>j.Name== inputSellingItemName);
             if(foundInventory != null)
             {
-                int SoldPrice=Convert.ToInt32(Math.Floor(foundInventory.Price * 0.85));
+                int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85));
                 Scene.currentPlayer.Gold += SoldPrice;
                 Console.WriteLine($"아이템: {inputSellingItemName}을/를 판매하였습니다");
                 Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");

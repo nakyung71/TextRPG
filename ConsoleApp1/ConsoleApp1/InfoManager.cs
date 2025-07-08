@@ -19,7 +19,7 @@ namespace RtanRPG
         public int Level = 1;
         public int Attack = 10;
         public int Defence = 5;
-        private int health;
+        private int health = 100;
         public int Health 
         {
             get
@@ -29,14 +29,44 @@ namespace RtanRPG
             set
             {
                 if (value > 100)
+                {
                     health = 100;
+                }
+                if (value<=0)
+                {
+                    health = 0;
+                }
+
                 else health = value;
             }
         }
         public int Gold = 1500;
         public Item EquipAccessories= Scene.items .itemList.Find(i => i.Equip == 1 && i.Type == 0);
-        public Item EquipArmor= Scene.items.itemList.Find(j => j.Equip == 1 && j.Type == 1);
-        public Item EquipWeapon= Scene.items.itemList.Find(h => h.Equip == 1 && h.Type == 2);
+        private Item _equipArmor = Scene.items.itemList.Find(j => j.Equip == 1 && j.Type == 1);
+        public Item EquipArmor
+        {
+            get
+            {
+                return _equipArmor ?? new Item { Defence = 0 };
+            }
+            set
+            {
+                _equipArmor = value;
+            }
+        }
+        private Item _equipWeapon=Scene.items.itemList.Find(h => h.Equip == 1 && h.Type == 2);
+        public Item EquipWeapon
+        {
+            get
+            {
+                return _equipWeapon ?? new Item { Attack = 0 };
+            }
+            set
+            {
+                _equipWeapon = value;
+            }
+        }
+
 
         public void UpdateEquippedItems()
         {
