@@ -71,7 +71,7 @@ namespace RtanRPG
                 }
                 
             }
-            Console.WriteLine("판매하실 아이템의 정확한 명칭을 입력해주세요 (공백 포함)");
+            Console.WriteLine("판매하실 아이템의 이름을 정확히 입력해주세요 (공백 포함)");
             string inputSellingItemName= Console.ReadLine();
             Item foundInventory = Scene.inventory.inventoryList.Find(j=>j.Name== inputSellingItemName);
             if(foundInventory != null)
@@ -97,12 +97,14 @@ namespace RtanRPG
         }
         public static void EquipItem()
         {
-            Console.WriteLine("장착하고 싶은 아이템을 선택하세요");
-            string inputEquipItemName=Console.ReadLine();
-            Item foundEquipItem= Scene.inventory.inventoryList.Find(h=>h.Name== inputEquipItemName);
+            Console.WriteLine("장착하고 싶은 아이템의 이름을 정확히 입력해주세요");
+            string inputEquipItemName = Console.ReadLine();
+            Item foundEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputEquipItemName);
             if (foundEquipItem != null)
             {
                 foundEquipItem.Equip = 1;
+                Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                Console.ReadKey(true);
             }
             else
             {
@@ -114,10 +116,25 @@ namespace RtanRPG
         }
         public static void UnEquipItem()
         {
-            console
+            Console.WriteLine("장착 해제하고 싶은 아이템의 이름을 정확히 입력해주세요");
+            string inputEquipItemName = Console.ReadLine();
+            Item foundEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputEquipItemName);
+            if (foundEquipItem != null)
+            {
+                foundEquipItem.Equip = 0;
+                Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착 해지하였습니다");
+                Console.ReadKey(true);
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다\n인벤토리 화면으로 돌아갑니다");
+                Console.ReadKey(true);
+                Scene.LoadInventory();
+            }
+
         }
 
-        
+
 
 
     }
