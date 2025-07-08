@@ -6,9 +6,10 @@ namespace RtanRPG
 
     class Scene
     {
-        public static Player currentPlayer = new Player();
         public static ItemManager items = new ItemManager();
+        public static Player currentPlayer = new Player();
         public static Inventory inventory = new Inventory();
+
         
         
         //여기서 참조를 받고(시작할때는 참조값이 없으니까)
@@ -25,7 +26,7 @@ namespace RtanRPG
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\r\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\r\n");
             Console.WriteLine("1.상태 보기\r\n2.인벤토리\r\n3.상점\r\n\r\n원하시는 행동을 입력해주세요.\r\n >> ");
-
+            
             while (true)
             {
                 string inputKey = Console.ReadLine();
@@ -72,6 +73,7 @@ namespace RtanRPG
         public static void LoadInventory()
         {
             Console.Clear();
+            Scene.currentPlayer.UpdateEquippedItems();
             Console.WriteLine("인벤토리\r\n보유 중인 아이템을 관리할 수 있습니다.\r\n\r\n[아이템 목록]\r\n");
             foreach (Item b in inventory.inventoryList)
             {
@@ -99,6 +101,11 @@ namespace RtanRPG
                 }
                 
             }
+            Console.WriteLine("=============================================================");
+            
+            Console.WriteLine($"장착된 악세서리: {currentPlayer.EquipAccessories?.Name?? ""}");
+            Console.WriteLine($"장착된 방어구: {currentPlayer.EquipArmor?.Name?? ""}");
+            Console.WriteLine($"장착된 무기: {currentPlayer.EquipWeapon?.Name?? ""}");
             Console.WriteLine("\r\n\r\n1. 아이템 장착 \r\n2. 아이템 해제\r\n3. 나가기\r\n원하시는 행동을 입력해주세요.\r\n>>");
             while (true)
             {
@@ -152,9 +159,10 @@ namespace RtanRPG
                 {
                     Console.WriteLine($"- {a.Name}  | 공격력 +{a.Attack} |  {a.Description} | {a.Price} G");
                 }
+                
 
             }
-            Console.WriteLine("\r\n1. 아이템 구매\r\n2. 아이템 판매\r\n0. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
+            Console.WriteLine("\r\n1. 아이템 구매\r\n2. 아이템 판매\r\n3. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
             while (true)
             {
                 string inputKey = Console.ReadLine();
@@ -175,7 +183,7 @@ namespace RtanRPG
                         GameManager.SellItem();
                         break;
                     }
-                    else if (num == 0)
+                    else if (num == 3)
                     {
                         LoadStartingScene();
                         break;
@@ -199,5 +207,8 @@ namespace RtanRPG
 
 
         }
+       
+    
+
     }
 }

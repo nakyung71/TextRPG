@@ -21,9 +21,20 @@ namespace RtanRPG
         public int Defence = 5;
         public int Health = 100;
         public int Gold = 1500;
+        public Item EquipAccessories= Scene.items .itemList.Find(i => i.Equip == 1 && i.Type == 0);
+        public Item EquipArmor= Scene.items.itemList.Find(j => j.Equip == 1 && j.Type == 1);
+        public Item EquipWeapon= Scene.items.itemList.Find(h => h.Equip == 1 && h.Type == 2);
+
+        public void UpdateEquippedItems()
+        {
+            EquipAccessories = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 0);
+            EquipArmor = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 1);
+            EquipWeapon = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 2);
+        }
 
 
     }
+
     public class Inventory
     {
         public List<Item> inventoryList= new List<Item>();
@@ -45,6 +56,7 @@ namespace RtanRPG
         public string Description = "";
         public int Price = 0;
         public int Equip = 0;
+        public int Type = 0;
 
 
     }
@@ -61,7 +73,8 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 5,
                 Description = "수련에 도움을 주는 갑옷입니다",
-                Price = 1000
+                Price = 1000,
+                Type = 1
             });
 
             itemList.Add(new Item
@@ -70,7 +83,8 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 9,
                 Description = "무쇠로 만들어져 튼튼한 갑옷입니다. ",
-                Price = 1200
+                Price = 1200,
+                Type = 1
             });
             itemList.Add(new Item
             {
@@ -78,7 +92,8 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 15,
                 Description = "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.",
-                Price = 3500
+                Price = 3500,
+                Type = 1
             });
 
             itemList.Add(new Item
@@ -87,7 +102,8 @@ namespace RtanRPG
                 Attack = 2,
                 Defence = 0,
                 Description = "쉽게 볼 수 있는 낡은 검 입니다.",
-                Price = 600
+                Price = 600,
+                Type = 1
             });
             itemList.Add(new Item
             {
@@ -95,7 +111,8 @@ namespace RtanRPG
                 Attack = 5,
                 Defence = 0,
                 Description = " 어디선가 사용됐던거 같은 도끼입니다.",
-                Price = 1500
+                Price = 1500,
+                Type = 2
             });
             itemList.Add(new Item
             {
@@ -103,7 +120,8 @@ namespace RtanRPG
                 Attack = 7,
                 Defence = 0,
                 Description = "스파르타의 전사들이 사용했다는 전설의 창입니다",
-                Price = 3500
+                Price = 3500,
+                Type = 2
             });
             itemList.Add(new Item
             {
@@ -111,7 +129,8 @@ namespace RtanRPG
                 Attack = 20,
                 Defence = 0,
                 Description = "귀여운 토끼의 주먹입니다",
-                Price = 10000
+                Price = 10000,
+                Type = 2
             });
             itemList.Add(new Item
             {
@@ -119,7 +138,26 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 20,
                 Description = "귀여운 토끼의 옷입니다",
-                Price = 10000
+                Price = 10000,
+                Type = 1
+            });
+            itemList.Add(new Item
+            {
+                Name = "핑",
+                Attack = 0,
+                Defence = 1,
+                Description = "너무 깜찍한 토끼 악세서리",
+                Price = 50,
+                Type = 0
+            });
+            itemList.Add(new Item
+            {
+                Name = "파",
+                Attack = 0,
+                Defence = 1,
+                Description = "너무 깜찍한 토끼 악세서리",
+                Price = 50,
+                Type = 0
             });
 
         }

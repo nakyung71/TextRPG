@@ -102,8 +102,26 @@ namespace RtanRPG
             Item foundEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputEquipItemName);
             if (foundEquipItem != null)
             {
-                foundEquipItem.Equip = 1;
-                Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                if (Scene.currentPlayer.EquipAccessories != null && foundEquipItem.Type == 0)
+                {
+                    Scene.currentPlayer.EquipAccessories.Equip = 0;
+                    foundEquipItem.Equip = 1;
+                }
+                else if (Scene.currentPlayer.EquipArmor != null && foundEquipItem.Type == 1)
+                {
+                    Scene.currentPlayer.EquipArmor.Equip = 0;
+                    foundEquipItem.Equip = 1;
+                }
+                else if (Scene.currentPlayer.EquipWeapon != null && foundEquipItem.Type == 2)
+                {
+                    Scene.currentPlayer.EquipWeapon.Equip = 0;
+                    foundEquipItem.Equip = 1;
+                }
+                else
+                {
+                    foundEquipItem.Equip = 1;
+                    Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                }
                 Console.ReadKey(true);
             }
             else
@@ -117,12 +135,14 @@ namespace RtanRPG
         public static void UnEquipItem()
         {
             Console.WriteLine("장착 해제하고 싶은 아이템의 이름을 정확히 입력해주세요");
-            string inputEquipItemName = Console.ReadLine();
-            Item foundEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputEquipItemName);
-            if (foundEquipItem != null)
+            string inputUnEquipItemName = Console.ReadLine();
+            Item foundUnEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputUnEquipItemName);
+            if (foundUnEquipItem != null)
             {
-                foundEquipItem.Equip = 0;
-                Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착 해지하였습니다");
+                
+               
+                foundUnEquipItem.Equip = 0;
+                Console.WriteLine($"아이템: {foundUnEquipItem.Name} 을 장착 해지하였습니다");
                 Console.ReadKey(true);
             }
             else
