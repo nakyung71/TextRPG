@@ -1,4 +1,4 @@
-﻿using ConsoleApp1;
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,54 +8,50 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace RtanRPG
 {
     public class Player
-
+       
     {
-        public static Player Instance { get; } = new Player();
-        public string Name { get; set; }
-        public string Job { get; set; }
-        public int Level { get; set; }
-        public int Attack { get; set; }
-        public int Defence { get; set; }
-        public int Health { get; set; }
-        public int Gold { get; set; }
+        
+        public string Name = "김나경";
+        public string Job = "전사";
+        public int Level = 1;
+        public int Attack = 10;
+        public int Defence = 5;
+        public int Health = 100;
+        public int Gold = 1500;
 
 
-        private Player()
+    }
+    public class Inventory
+    {
+        List<Item> inventory= new List<Item>();
+        public Inventory()
         {
-            Name = "김나경";
-            Job = "전사";
-            Level = 1;
-            Attack = 10;
-            Defence = 5;
-            Health = 100;
-            Gold = 1500;
 
         }
+        //여기에도 리스트 만들어서 구매하면 여기에 add하면 되겠네
     }
+
     public class Item
     {
-        public static Item Instance { get; } = new Item();
-        public string Name = 
-        public int Attack 
-        public int Defence 
-        public string Description 
-        public int Price 
+
+        public string Name = "";
+        public int Attack = 0;
+        public int Defence = 0;
+        public string Description = "";
+        public int Price = 0;
 
 
     }
     public class ItemManager
     {
-        public static ItemManager Instance { get; } = new ItemManager();
 
-        public List<Item> itemList { get; private set; }
+        public List<Item> itemList = new List<Item>();
         public ItemManager()
         {
 
-
-            itemList = new List<Item>();
             itemList.Add(new Item
             {
                 Name = "수련자 갑옷",
