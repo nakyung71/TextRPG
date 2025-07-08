@@ -25,7 +25,7 @@ namespace RtanRPG
         {
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\r\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\r\n");
-            Console.WriteLine("1.상태 보기\r\n2.인벤토리\r\n3.상점\r\n4.던전 입장\r\n원하시는 행동을 입력해주세요.\r\n >> ");
+            Console.WriteLine("1.상태 보기\r\n2.인벤토리\r\n3.상점\r\n4.던전 입장\r\n5.휴식하기\n원하시는 행동을 입력해주세요.\r\n >> ");
             
             while (true)
             {
@@ -55,6 +55,12 @@ namespace RtanRPG
                     else if(num==4)
                     {
                         Dungeon.LoadDungeon();
+                        break;
+                    }
+                    else if (num == 5)
+                    {
+                        LoadInn();
+                        break;
                     }
                     else
                     {
@@ -68,11 +74,37 @@ namespace RtanRPG
         static void LoadStatus()
         {
             Console.Clear();
+            Scene.currentPlayer.UpdateEquippedItems();
             Console.WriteLine("상태 보기\r\n캐릭터의 정보가 표시됩니다.\r\n\r\n");
-            Console.WriteLine($"Lv. {currentPlayer.Name}      \r\n{currentPlayer.Job} ( 전사 )\r\n공격력 : {currentPlayer.Attack}\r\n방어력 : {currentPlayer.Defence}\r\n체 력 : {currentPlayer.Health}\r\nGold : {currentPlayer.Gold} G");
+            Console.WriteLine($"Lv. {currentPlayer.Name}\r\n{currentPlayer.Job} ( 전사 )");
+            Console.WriteLine($"공격력 : {currentPlayer.Attack}+({currentPlayer.EquipWeapon?.Attack?? 0 })");
+            Console.WriteLine($"방어력 : {currentPlayer.Defence}+({currentPlayer.EquipArmor?.Defence ?? 0}");
+            Console.WriteLine($"체 력 : {currentPlayer.Health}\r\nGold : {currentPlayer.Gold} G");
             Console.WriteLine("\r\n\r\n0. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
+            while (true)
+            {
+                string inputKey = Console.ReadLine();
+                bool isNumber = int.TryParse(inputKey, out int num);
+                if (!isNumber)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+                if (isNumber)
+                {
+                    if (num == 1)
+                    {
+                        GameManager.EquipItem();
+                        LoadInventory();
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                    }
 
 
+                }
+            }
         }
         public static void LoadInventory()
         {
@@ -114,7 +146,6 @@ namespace RtanRPG
                 
             }
             Console.WriteLine("=============================================================");
-            
             Console.WriteLine($"장착된 악세서리: {currentPlayer.EquipAccessories?.Name?? ""}");
             Console.WriteLine($"장착된 방어구: {currentPlayer.EquipArmor?.Name?? ""}");
             Console.WriteLine($"장착된 무기: {currentPlayer.EquipWeapon?.Name?? ""}");
@@ -212,18 +243,60 @@ namespace RtanRPG
 
                 }
             }
-
             
-
-            
-
-
-
-
-
 
         }
-        
+        static void LoadInn()
+        {
+            Console.Clear ();
+            Console.WriteLine("휴식하기\r\n500 G 를 내면 체력을 회복할 수 있습니다. (보유 골드 : 800 G)");
+            Console.WriteLine("\r\n1. 휴식하기 (500 G 소모)\r\n2. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
+            while (true)
+            {
+                string inputKey = Console.ReadLine();
+                bool isNumber = int.TryParse(inputKey, out int num);
+                if (!isNumber)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+                if (isNumber)
+                {
+                    if (num == 1)
+                    {
+                        bool isPay = currentPlayer.Gold >= 500;
+                        if (isPay)
+                        {
+                            Console.WriteLine("여관 침대에서 잠을 청하였다");
+                            currentPlayer.Health = 100;
+                            currentPlayer.Gold -= 500;
+                            Console.WriteLine($"내 체력이 회복되었다. 현재 체력은 {currentPlayer.Health}, 보유 금액은{currentPlayer.Gold}이다");
+                            Console.WriteLine("여관으로 돌아갑니다");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Gold 가 부족합니다. 현재 보유중인 돈은 {currentPlayer.Gold}");
+                            Console.WriteLine("여관으로 돌아갑니다");
+                            Console.ReadKey();
+                            LoadInn();
+                            break;
+                        }
+                    }
+                    else if (num == 2)
+                    {
+                        LoadStartingScene();
+                    }
+                   
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                    }
+
+
+                }
+            }
+        }
+
 
 
 

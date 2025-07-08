@@ -19,7 +19,20 @@ namespace RtanRPG
         public int Level = 1;
         public int Attack = 10;
         public int Defence = 5;
-        public int Health = 100;
+        private int health;
+        public int Health 
+        {
+            get
+            {
+                return health;
+            }
+            set
+            {
+                if (value > 100)
+                    health = 100;
+                else health = value;
+            }
+        }
         public int Gold = 1500;
         public Item EquipAccessories= Scene.items .itemList.Find(i => i.Equip == 1 && i.Type == 0);
         public Item EquipArmor= Scene.items.itemList.Find(j => j.Equip == 1 && j.Type == 1);
@@ -42,6 +55,7 @@ namespace RtanRPG
         {
             inventoryList.Add(item);
             Console.WriteLine($"아이템: {item.Name} 이(가) 인벤토리에 추가되었습니다.");
+            Console.ReadKey();
 
         }
         //여기에도 리스트 만들어서 구매하면 여기에 add하면 되겠네

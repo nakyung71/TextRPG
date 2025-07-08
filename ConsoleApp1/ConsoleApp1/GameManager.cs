@@ -61,11 +61,15 @@ namespace RtanRPG
             Console.WriteLine($"[보유 골드]\n{Scene.currentPlayer.Gold} G\r\n\n[아이템 목록]");
             foreach (Item c in Scene.inventory.inventoryList)
             {
-                if (c.Attack == 0)
+                if (c.Type == 0)
+                {
+                    Console.WriteLine($"- {c.Name} | {c.Description}");
+                }
+                else if (c.Type == 1)
                 {
                     Console.WriteLine($"- {c.Name} | 방어력 +{c.Defence} | {c.Description}");
                 }
-                if (c.Defence == 0)
+                else if(c.Type==2)
                 {
                     Console.WriteLine($"- {c.Name} | 공격력 +{c.Attack} | {c.Description}");
                 }
@@ -76,7 +80,7 @@ namespace RtanRPG
             Item foundInventory = Scene.inventory.inventoryList.Find(j=>j.Name== inputSellingItemName);
             if(foundInventory != null)
             {
-                int SoldPrice=Convert.ToInt32(Math.Floor(foundInventory.Price * 0.7));
+                int SoldPrice=Convert.ToInt32(Math.Floor(foundInventory.Price * 0.85));
                 Scene.currentPlayer.Gold += SoldPrice;
                 Console.WriteLine($"아이템: {inputSellingItemName}을/를 판매하였습니다");
                 Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
