@@ -17,6 +17,7 @@ namespace RtanRPG
             Console.WriteLine("2. 일반 던전\t| 방어력 11 이상 권장");
             Console.WriteLine("3. 어려운 던전\t| 방어력 17 이상 권장");
             Console.WriteLine("4. 나가기");
+            Console.WriteLine(">>>");
             while (true)
             {
                 string inputKey = Console.ReadLine();
@@ -88,9 +89,16 @@ namespace RtanRPG
             int GoldEarnFinal = 1000 + Convert.ToInt32(Math.Ceiling(1000*0.01*(rand.Next(attackFinal, attackFinal * 2))));
 
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n쉬운 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            if (Scene.currentPlayer.Health <= healthLostFinal)
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {0}");
+            }
+            else
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            }
             Console.WriteLine($"Gold {Scene.currentPlayer.Gold} G-> {Scene.currentPlayer.Gold+GoldEarnFinal} G ");
-            Console.WriteLine("\\r\\n\\r\\n0.나가기\\r\\n\\r\\n원하시는 행동을 입력해주세요.\\r\\n >>");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
             Scene.currentPlayer.Gold += GoldEarnFinal;
             Scene.currentPlayer.Health -= healthLostFinal;
@@ -131,9 +139,16 @@ namespace RtanRPG
             int GoldEarnFinal = 1700 + Convert.ToInt32(Math.Ceiling(2000 * 0.01 * (rand.Next(attackFinal, attackFinal * 2))));
 
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n노말 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            if (Scene.currentPlayer.Health <= healthLostFinal)
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {0}");
+            }
+            else
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            }
             Console.WriteLine($"Gold {Scene.currentPlayer.Gold} G-> {Scene.currentPlayer.Gold + GoldEarnFinal} G ");
-            Console.WriteLine("\\r\\n\\r\\n0.나가기\\r\\n\\r\\n원하시는 행동을 입력해주세요.\\r\\n >>");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
             Scene.currentPlayer.Gold += GoldEarnFinal;
             Scene.currentPlayer.Health -= healthLostFinal;
@@ -172,9 +187,16 @@ namespace RtanRPG
             int GoldEarnFinal = 2500 + Convert.ToInt32(Math.Ceiling(3000 * 0.01 * (rand.Next(attackFinal, attackFinal * 2))));
 
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n하드 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            if (Scene.currentPlayer.Health <= healthLostFinal)
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {0}");
+            }
+            else
+            {
+                Console.WriteLine($"[탐험 결과]\r\n체력{Scene.currentPlayer.Health} -> {Scene.currentPlayer.Health - healthLostFinal}");
+            }
             Console.WriteLine($"Gold {Scene.currentPlayer.Gold} G-> {Scene.currentPlayer.Gold + GoldEarnFinal} G ");
-            Console.WriteLine("\\r\\n\\r\\n0.나가기\\r\\n\\r\\n원하시는 행동을 입력해주세요.\\r\\n >>");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
             Scene.currentPlayer.Gold += GoldEarnFinal;
             Scene.currentPlayer.Health -= healthLostFinal;

@@ -32,7 +32,7 @@ namespace RtanRPG
                 {
                     health = 100;
                 }
-                if (value<=0)
+                else if (value<=0)
                 {
                     health = 0;
                 }
