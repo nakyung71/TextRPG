@@ -15,32 +15,35 @@ namespace RtanRPG
         public static void BuyItem()
         {
             //일단 아이템을 골라야겠지
-            Console.WriteLine("구매하실 아이템 이름을 정확히 입력해주세요(공백 포함)");
-            string input=Console.ReadLine();
-            Item foundItem= Scene.items.itemList.Find(i=>i.Name==input);
+            Console.WriteLine("구매하실 아이템 이름을 정확히 입력해주세요 (공백 포함)");
+            string inputItemName=Console.ReadLine();
+            Item foundItem= Scene.items.itemList.Find(i=>i.Name==inputItemName);
             if (foundItem != null )
             {
-                Console.WriteLine($"{foundItem.Name} 을 정말 구매하시겠습니까?");
-                Console.WriteLine("1. 예 \r\n2. 아니요");
-
-                Console.WriteLine("");
                 bool canBuy = Scene.currentPlayer.Gold >= foundItem.Price;
-                if( canBuy )
+                if (canBuy)
                 {
                     Scene.inventory.AddItem(foundItem);
+                    Console.WriteLine($"골드가 {foundItem.Price} 만큼 차감되었습니다.");
+                    Scene.currentPlayer.Gold-=foundItem.Price;
+                    Console.WriteLine("상점으로 돌아갑니다");
+                    Console.ReadKey();
+                    Scene.LoadShop();
                 }
                 else
                 {
                     Console.WriteLine("골드가 부족합니다");
+                    Console.WriteLine("상점으로 돌아갑니다");
+                    Console.ReadKey();
+                    Scene.LoadShop();
                 }
-
-
             }
             else
             {
                 Console.WriteLine("잘못된 입력입니다");
-                Console.WriteLine("");
-                    
+                Console.WriteLine("상점으로 돌아갑니다");
+                Console.ReadKey();
+                Scene.LoadShop();
             }
 
             //만약 플레이어가 입력한 아이템 이름이 아이템 상점에 있는 아이템 이름 중 하나랑 같다면
@@ -52,9 +55,41 @@ namespace RtanRPG
             //if (Scene.currentPlayer.Gold < Scene.) ;
 
         }
-        void SellItem()
+        public static void SellItem()
         {
-
+            Console.Clear();
+            Console.WriteLine($"[보유 골드]\n{Scene.currentPlayer.Gold} G\r\n\n[아이템 목록]");
+            foreach (Item c in Scene.inventory.inventoryList)
+            {
+                if (c.Attack == 0)
+                {
+                    Console.WriteLine($"- {c.Name} | 방어력 +{c.Defence} | {c.Description}");
+                }
+                if (c.Defence == 0)
+                {
+                    Console.WriteLine($"- {c.Name} | 공격력 +{c.Attack} | {c.Description}");
+                }
+                
+            }
+            Console.WriteLine("판매하실 아이템의 정확한 명칭을 입력해주세요 (공백 포함)");
+            string inputSellingItemName= Console.ReadLine();
+            Item foundInventory = Scene.inventory.inventoryList.Find(j=>j.Name== inputSellingItemName);
+            if(foundInventory != null)
+            {
+                int SoldPrice=Convert.ToInt32(Math.Floor(foundInventory.Price * 0.7));
+                Scene.currentPlayer.Gold += SoldPrice;
+                Console.WriteLine($"아이템: {inputSellingItemName}을/를 판매하였습니다");
+                Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
+                Console.WriteLine($"현재 보유중인 금액은 {Scene.currentPlayer.Gold} G 입니다");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다");
+                Console.WriteLine("상점으로 돌아갑니다");
+                Console.ReadKey();
+                Scene.LoadShop();
+            }
         }
 
         
