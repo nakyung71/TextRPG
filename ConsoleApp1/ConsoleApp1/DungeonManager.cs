@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace RtanRPG
 {
-    internal class DungeonManager
+    internal class Dungeon
     {
-        
+        public static void LoadDungeon()
+        {
+            Console.Clear();
+        }
+
+
+
     }
 }

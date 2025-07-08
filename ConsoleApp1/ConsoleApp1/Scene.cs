@@ -25,7 +25,7 @@ namespace RtanRPG
         {
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\r\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\r\n");
-            Console.WriteLine("1.상태 보기\r\n2.인벤토리\r\n3.상점\r\n\r\n원하시는 행동을 입력해주세요.\r\n >> ");
+            Console.WriteLine("1.상태 보기\r\n2.인벤토리\r\n3.상점\r\n4.던전 입장\r\n원하시는 행동을 입력해주세요.\r\n >> ");
             
             while (true)
             {
@@ -51,6 +51,10 @@ namespace RtanRPG
                     {
                         LoadShop();
                         break;
+                    }
+                    else if(num==4)
+                    {
+                        Dungeon.LoadDungeon();
                     }
                     else
                     {
@@ -79,22 +83,30 @@ namespace RtanRPG
             {
                 if(b.Equip==0)
                 {
-                    if (b.Attack == 0)
+                    if (b.Type == 0)
+                    {
+                        Console.WriteLine($"- {b.Name} | {b.Description}");
+                    }
+                    else if (b.Type == 1)
                     {
                         Console.WriteLine($"- {b.Name} | 방어력 +{b.Defence} | {b.Description}");
                     }
-                    if (b.Defence == 0)
+                    else if (b.Type == 2)
                     {
                         Console.WriteLine($"- {b.Name} | 공격력 +{b.Attack} | {b.Description}");
                     }
                 }
                 else
                 {
-                    if (b.Attack == 0)
+                    if (b.Type == 0)
+                    {
+                        Console.WriteLine($"- [E]{b.Name} | {b.Description}");
+                    }
+                    else if (b.Type == 1)
                     {
                         Console.WriteLine($"- [E]{b.Name} | 방어력 +{b.Defence} | {b.Description}");
                     }
-                    if (b.Defence == 0)
+                    else if (b.Type == 2)
                     {
                         Console.WriteLine($"- [E]{b.Name} | 공격력 +{b.Attack} | {b.Description}");
                     }
@@ -151,11 +163,15 @@ namespace RtanRPG
 
             foreach (Item a in items.itemList)
             {
-                if (a.Attack == 0)
+                if (a.Type == 0)
+                {
+                    Console.WriteLine($"- {a.Name}  | {a.Description} | {a.Price} G ");
+                }
+                if (a.Type == 1)
                 {
                     Console.WriteLine($"- {a.Name}  | 방어력 +{a.Defence} |  {a.Description} | {a.Price} G ");
                 }
-                else if (a.Defence == 0)
+                else if (a.Type==2)
                 {
                     Console.WriteLine($"- {a.Name}  | 공격력 +{a.Attack} |  {a.Description} | {a.Price} G");
                 }
@@ -207,8 +223,11 @@ namespace RtanRPG
 
 
         }
-       
-    
+        
+
+
+
+
 
     }
 }

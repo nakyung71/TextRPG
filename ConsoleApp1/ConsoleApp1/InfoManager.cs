@@ -145,7 +145,7 @@ namespace RtanRPG
             {
                 Name = "핑",
                 Attack = 0,
-                Defence = 1,
+                Defence = 0,
                 Description = "너무 깜찍한 토끼 악세서리",
                 Price = 50,
                 Type = 0
@@ -154,7 +154,7 @@ namespace RtanRPG
             {
                 Name = "파",
                 Attack = 0,
-                Defence = 1,
+                Defence = 0,
                 Description = "너무 깜찍한 토끼 악세서리",
                 Price = 50,
                 Type = 0
