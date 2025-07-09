@@ -14,82 +14,96 @@ namespace RtanRPG
     {
         public static void BuyItem()
         {
-            //일단 아이템을 골라야겠지
-            Console.WriteLine("구매하실 아이템 이름을 정확히 입력해주세요 (공백 포함)");
-            string inputItemName=Console.ReadLine();
-            Item foundItem= Scene.items.itemList.Find(i=>i.Name==inputItemName);
-            if (foundItem != null )
+            Console.WriteLine("구매하실 아이템 번호를 정확히 입력해주세요 ");
+            bool isNum = int.TryParse(Console.ReadLine(), out int num);
+
+            if (isNum && num >= 1 && num <= ItemManager.Instance.itemList.Count)
             {
-                bool canBuy = Scene.currentPlayer.Gold >= foundItem.Price;
-                if (canBuy)
+                
+                Item foundBuyItem = ItemManager.Instance.itemList[num - 1];
+                if (foundBuyItem.IsPurchased == false)
                 {
-                    Scene.inventory.AddItem(foundItem);
-                    Console.WriteLine($"골드가 {foundItem.Price} 만큼 차감되었습니다.");
-                    Scene.currentPlayer.Gold-=foundItem.Price;
+                    bool canBuy = Player.Instance.Gold >= foundBuyItem.Price;
+                    if (canBuy)
+                    {
+                        Inventory.Instance.AddItem(foundBuyItem);
+                        foundBuyItem.IsPurchased = true;
+                        Console.WriteLine($"골드가 {foundBuyItem.Price} 만큼 차감되었습니다.");
+                        Player.Instance.Gold -= foundBuyItem.Price;
+                        Console.WriteLine("상점으로 돌아갑니다");
+                        Console.ReadKey();
+                        Scene.LoadShop();
+                    }
+                    else
+                    {
+                        Console.WriteLine("골드가 부족합니다");
+                        Console.WriteLine("상점으로 돌아갑니다");
+                        Console.ReadKey();
+                        Scene.LoadShop();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("이미 구매한 아이템입니다");
                     Console.WriteLine("상점으로 돌아갑니다");
+                    Console.ReadKey();
+                    Scene.LoadShop();
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.상점창으로 돌아갑니다");
+                Console.ReadKey();
+                Scene.LoadShop();
+            }
+
+        }
+
+        public static void SellItem()
+        {
+            Console.Clear();
+            Console.WriteLine($"[보유 골드]\n{Player.Instance.Gold} G\r\n\n[아이템 목록]");
+            for(int i = 0;i<Inventory.Instance.inventoryList.Count;i++) 
+            {
+                Item c=Inventory.Instance.inventoryList[i];
+                Console.Write($"{- i}");
+                if (c.Type == 0)
+                {
+                    Console.WriteLine($"  {c.Name} | {c.Description}");
+                }
+                else if (c.Type == 1)
+                {
+                    Console.WriteLine($"  {c.Name} | 방어력 +{c.Defence} | {c.Description}");
+                }
+                else if(c.Type==2)
+                {
+                    Console.WriteLine($"  {c.Name} | 공격력 +{c.Attack} | {c.Description}");
+                }
+                
+            }
+            Console.WriteLine("판매하실 아이템의 번호를 정확히 입력해주세요");
+            bool isNum=int.TryParse( Console.ReadLine(),out int num);
+            
+            if(isNum&&num>=1&&num<=Inventory.Instance.inventoryList.Count)
+            {
+                Item foundInventory= Inventory.Instance.inventoryList[num-1];
+                int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85));
+                Player.Instance.Gold += SoldPrice;
+                Console.WriteLine($"아이템: {foundInventory.Name}을/를 판매하였습니다");
+                Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
+                Console.WriteLine($"현재 보유중인 금액은 {Player.Instance.Gold} G 입니다");
+                if (foundInventory.Equip == 1)
+                {
+                    foundInventory.Equip = 0;
                     Console.ReadKey();
                     Scene.LoadShop();
                 }
                 else
                 {
-                    Console.WriteLine("골드가 부족합니다");
-                    Console.WriteLine("상점으로 돌아갑니다");
                     Console.ReadKey();
                     Scene.LoadShop();
                 }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다");
-                Console.WriteLine("상점으로 돌아갑니다");
-                Console.ReadKey();
-                Scene.LoadShop();
-            }
-
-            //만약 플레이어가 입력한 아이템 이름이 아이템 상점에 있는 아이템 이름 중 하나랑 같다면
-            //그 아이템을 호출한다
-            //살수 있는지 테스트를 해본다
-            //플레이어가 가진 골드보다 물건이 비싸면 못삼
-            //
-            //그 다음 산 물건을 리스트에 넣어준다
-            //if (Scene.currentPlayer.Gold < Scene.) ;
-
-        }
-        public static void SellItem()
-        {
-            Console.Clear();
-            Console.WriteLine($"[보유 골드]\n{Scene.currentPlayer.Gold} G\r\n\n[아이템 목록]");
-            foreach (Item c in Scene.inventory.inventoryList)
-            {
-                if (c.Type == 0)
-                {
-                    Console.WriteLine($"- {c.Name} | {c.Description}");
-                }
-                else if (c.Type == 1)
-                {
-                    Console.WriteLine($"- {c.Name} | 방어력 +{c.Defence} | {c.Description}");
-                }
-                else if(c.Type==2)
-                {
-                    Console.WriteLine($"- {c.Name} | 공격력 +{c.Attack} | {c.Description}");
-                }
-                
-            }
-            Console.WriteLine("판매하실 아이템의 이름을 정확히 입력해주세요 (공백 포함)");
-            string inputSellingItemName= Console.ReadLine();
-            Item foundInventory = Scene.inventory.inventoryList.Find(j=>j.Name== inputSellingItemName);
-            if(foundInventory != null)
-            {
-                int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85));
-                Scene.currentPlayer.Gold += SoldPrice;
-                Console.WriteLine($"아이템: {inputSellingItemName}을/를 판매하였습니다");
-                Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
-                Console.WriteLine($"현재 보유중인 금액은 {Scene.currentPlayer.Gold} G 입니다");
-                if(foundInventory.Equip==1)
-                {
-                    foundInventory.Equip = 0;
-                }
-                else Console.ReadKey();
             }
             else
             {
@@ -101,32 +115,44 @@ namespace RtanRPG
         }
         public static void EquipItem()
         {
-            Console.WriteLine("장착하고 싶은 아이템의 이름을 정확히 입력해주세요");
-            string inputEquipItemName = Console.ReadLine();
-            Item foundEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputEquipItemName);
-            if (foundEquipItem != null)
+            Console.WriteLine("장착하고 싶은 아이템의 번호를 정확히 입력해주세요");
+            bool isNum = int.TryParse(Console.ReadLine(), out int num);
+
+            if (isNum && num >= 1 && num <= Inventory.Instance.inventoryList.Count)
             {
-                if (Scene.currentPlayer.EquipAccessories != null && foundEquipItem.Type == 0)
+                Item foundEquipItem = Inventory.Instance.inventoryList[num - 1];
+                Console.WriteLine($"선택한 아이템: {foundEquipItem.Name}");
+                if (Player.Instance.EquipAccessories != null && foundEquipItem.Type == 0)
                 {
-                    Scene.currentPlayer.EquipAccessories.Equip = 0;
+                    Player.Instance.EquipAccessories.Equip = 0;
                     foundEquipItem.Equip = 1;
+                    Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                    Console.ReadKey(true);
+                    Scene.LoadInventory();
                 }
-                else if (Scene.currentPlayer.EquipArmor != null && foundEquipItem.Type == 1)
+                else if (Player.Instance.EquipArmor.Defence >= 1 && foundEquipItem.Type == 1)
                 {
-                    Scene.currentPlayer.EquipArmor.Equip = 0;
+                    Player.Instance.EquipArmor.Equip = 0;
                     foundEquipItem.Equip = 1;
+                    Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                    Console.ReadKey(true);
+                    Scene.LoadInventory();
                 }
-                else if (Scene.currentPlayer.EquipWeapon != null && foundEquipItem.Type == 2)
+                else if (Player.Instance.EquipWeapon.Attack >= 1 && foundEquipItem.Type == 2)
                 {
-                    Scene.currentPlayer.EquipWeapon.Equip = 0;
+                    Player.Instance.EquipWeapon.Equip = 0;
                     foundEquipItem.Equip = 1;
+                    Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                    Console.ReadKey(true);
+                    Scene.LoadInventory();
                 }
-                else
+                else if (foundEquipItem.Equip == 0)
                 {
                     foundEquipItem.Equip = 1;
                     Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
+                    Console.ReadKey(true);
+                    Scene.LoadInventory();
                 }
-                Console.ReadKey(true);
             }
             else
             {
@@ -134,20 +160,21 @@ namespace RtanRPG
                 Console.ReadKey(true);
                 Scene.LoadInventory();
             }
-
         }
+
+
+            
         public static void UnEquipItem()
         {
-            Console.WriteLine("장착 해제하고 싶은 아이템의 이름을 정확히 입력해주세요");
-            string inputUnEquipItemName = Console.ReadLine();
-            Item foundUnEquipItem = Scene.inventory.inventoryList.Find(h => h.Name == inputUnEquipItemName);
-            if (foundUnEquipItem != null)
+            Console.WriteLine("장착 해제하고 싶은 아이템의 번호를 정확히 입력해주세요");
+            bool isNum = int.TryParse(Console.ReadLine(), out int num);
+            if(isNum&&num>=1&&num<=Inventory.Instance.inventoryList.Count)
             {
-                
-               
+                Item foundUnEquipItem = Inventory.Instance.inventoryList[num - 1];
                 foundUnEquipItem.Equip = 0;
                 Console.WriteLine($"아이템: {foundUnEquipItem.Name} 을 장착 해지하였습니다");
                 Console.ReadKey(true);
+                Scene.LoadInventory();
             }
             else
             {
@@ -157,9 +184,7 @@ namespace RtanRPG
             }
 
         }
-
-
-
+        
 
     }
 

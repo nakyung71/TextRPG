@@ -4,62 +4,115 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RtanRPG
 {
-    public class Player
+    public class  Player
        
     {
+        private static Player instance;
+        public static Player Instance
+        {
+            get 
+            {
+                if (instance == null)
+                { 
+                    instance = new Player(); 
+
+                }
+                return instance;
+
+            }
+
+        }
+            
+
         
         public string Name = "김나경";
         public string Job = "전사";
         public int Level = 1;
         public int Attack = 10;
         public int Defence = 5;
-        private int health = 100;
+        private int _health = 100;
+        int Exp = 0;
+
+
+        private int ExpNeeded()
+        {
+            return 100 * Level;
+        }
+
+        public void ExpGain(int exp)
+        {
+            Exp += exp;
+            if (Exp >= ExpNeeded())
+            {
+                Level += 1;
+                Exp = 0;
+                Console.WriteLine($"레벨업! 플레이어의 레벨이 Lv. {Level} 이/가 되었습니다");
+
+            }
+        }
+
         public int Health 
         {
             get
             {
-                return health;
+                return _health;
             }
             set
             {
                 if (value > 100)
                 {
-                    health = 100;
+                    _health = 100;
                 }
                 else if (value<=0)
                 {
-                    health = 0;
+                    _health = 0;
                 }
 
-                else health = value;
+                else _health = value;
             }
         }
         public int Gold = 1500;
-        public Item EquipAccessories= Scene.items .itemList.Find(i => i.Equip == 1 && i.Type == 0);
-        private Item _equipArmor = Scene.items.itemList.Find(j => j.Equip == 1 && j.Type == 1);
+        private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 0);
+
+        public Item EquipAccessories
+        {
+            get 
+            {
+                return _equipAccessories ?? new Item();
+            }
+
+            set 
+            { 
+                _equipAccessories = value;
+            }
+
+
+        }
+        private Item _equipArmor = ItemManager.Instance.itemList.Find(j => j.Equip == 1 && j.Type == 1);
         public Item EquipArmor
         {
             get
             {
-                return _equipArmor ?? new Item { Defence = 0 };
+                return _equipArmor ?? new Item();
             }
             set
             {
                 _equipArmor = value;
             }
         }
-        private Item _equipWeapon=Scene.items.itemList.Find(h => h.Equip == 1 && h.Type == 2);
+        private Item _equipWeapon=ItemManager.Instance.itemList.Find(h => h.Equip == 1 && h.Type == 2);
         public Item EquipWeapon
         {
             get
             {
-                return _equipWeapon ?? new Item { Attack = 0 };
+                return _equipWeapon ?? new Item();
             }
             set
             {
@@ -70,9 +123,9 @@ namespace RtanRPG
 
         public void UpdateEquippedItems()
         {
-            EquipAccessories = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 0);
-            EquipArmor = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 1);
-            EquipWeapon = Scene.items.itemList.Find(i => i.Equip == 1 && i.Type == 2);
+            EquipAccessories = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 0);
+            EquipArmor = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 1);
+            EquipWeapon = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 2);
         }
 
 
@@ -80,6 +133,21 @@ namespace RtanRPG
 
     public class Inventory
     {
+        private static Inventory instance;
+        public static Inventory Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Inventory();
+                }
+                return instance;
+            }
+
+        }
+
+
         public List<Item> inventoryList= new List<Item>();
         public void AddItem(Item item)
         {
@@ -88,7 +156,7 @@ namespace RtanRPG
             Console.ReadKey();
 
         }
-        //여기에도 리스트 만들어서 구매하면 여기에 add하면 되겠네
+       
     }
 
     public class Item
@@ -101,18 +169,38 @@ namespace RtanRPG
         public int Price = 0;
         public int Equip = 0;
         public int Type = 0;
+        public int Number = 0;
+        public bool IsPurchased=false;
 
 
     }
     public class ItemManager
     {
+        private static ItemManager instance;
+        public static ItemManager Instance
+        {
+
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ItemManager();
+                }
+                return instance; 
+
+
+            }
+
+        }
 
         public List<Item> itemList = new List<Item>();
         public ItemManager()
         {
 
+
             itemList.Add(new Item
             {
+                Number = 1,
                 Name = "수련자 갑옷",
                 Attack = 0,
                 Defence = 5,
@@ -123,6 +211,7 @@ namespace RtanRPG
 
             itemList.Add(new Item
             {
+                Number = 2,
                 Name = "무쇠갑옷",
                 Attack = 0,
                 Defence = 9,
@@ -132,6 +221,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 3,
                 Name = "스파르타의 갑옷",
                 Attack = 0,
                 Defence = 15,
@@ -142,6 +232,7 @@ namespace RtanRPG
 
             itemList.Add(new Item
             {
+                Number = 4,
                 Name = "낡은 검",
                 Attack = 2,
                 Defence = 0,
@@ -151,6 +242,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number=5,
                 Name = "청동 도끼",
                 Attack = 5,
                 Defence = 0,
@@ -160,6 +252,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 6,
                 Name = "스파르타의 창",
                 Attack = 7,
                 Defence = 0,
@@ -169,6 +262,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 7,
                 Name = "귀여운 토끼주먹",
                 Attack = 20,
                 Defence = 0,
@@ -178,6 +272,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 8,
                 Name = "토끼 인형탈",
                 Attack = 0,
                 Defence = 20,
@@ -187,6 +282,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 9,
                 Name = "핑",
                 Attack = 0,
                 Defence = 0,
@@ -196,6 +292,7 @@ namespace RtanRPG
             });
             itemList.Add(new Item
             {
+                Number = 10,
                 Name = "파",
                 Attack = 0,
                 Defence = 0,
