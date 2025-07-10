@@ -238,22 +238,24 @@ namespace RtanRPG
             for(int i = 0; i<ItemManager.Instance.itemList.Count; i++) 
             {
                 Item a = ItemManager.Instance.itemList[i];
-                Console.Write($"- {i+1}  ");
-                if (a.Type == 0)
+                Console.Write($"- {i + 1}");
+                Console.Write($"  {a.Name}  |");
+                if (a.Defence != 0)
                 {
-                    Console.WriteLine($"{a.Name}  | {a.Description} | {a.Price} G ");
+                    Console.Write($"  방어력 +{a.Defence}  |");
                 }
-                if (a.Type == 1)
+                if (a.Attack != 0)
                 {
-                    Console.WriteLine($"{a.Name}  | 방어력 +{a.Defence} |  {a.Description} | {a.Price} G ");
+                    Console.Write($"  공격력 +{a.Attack}  |");
                 }
-                else if (a.Type==2)
-                {
-                    Console.WriteLine($"{a.Name}  | 공격력 +{a.Attack} |  {a.Description} | {a.Price} G");
-                }
-
-
+                Console.Write($"  {a.Description}  |");
+                if(a.IsPurchased==true)
+                Console.Write($" [판매완료]\n");
+                if(a.IsPurchased==false)
+                Console.Write($"  {a.Price} G\n");
             }
+
+        
             Console.WriteLine("\r\n1. 아이템 구매\r\n2. 아이템 판매\r\n3. 나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n>>");
             while (true)
             {

@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace RtanRPG
 {
-    public class  Player
-       
+    public class Player
+
     {
         private static Player instance;
         public static Player Instance
         {
-            get 
+            get
             {
                 if (instance == null)
-                { 
-                    instance = new Player(); 
+                {
+                    instance = new Player();
 
                 }
                 return instance;
@@ -32,7 +32,19 @@ namespace RtanRPG
 
         public string Name = "김나경";
         public string Job = "전사";
-        public int Level = 1;
+        private int _level = 1;
+        public int Level
+        {
+            get 
+            {
+                return _level; 
+            }
+            private set
+            {
+                _level = value;
+            }
+            
+        }
         public int Attack = 10;
         public int Defence = 5;
         private int _health = 100;
@@ -305,20 +317,20 @@ namespace RtanRPG
             itemList.Add(new Item
             {
                 Number = 9,
-                Name = "핑",
+                Name = "핑크 토끼 머리띠",
                 Attack = 0,
                 Defence = 0,
-                Description = "너무 깜찍한 토끼 악세서리",
+                Description = "너무 깜찍한 토끼 악세서리입니다",
                 Price = 50,
                 Type = 0
             });
             itemList.Add(new Item
             {
                 Number = 10,
-                Name = "파",
+                Name = "고양이 냥발",
                 Attack = 0,
                 Defence = 0,
-                Description = "너무 깜찍한 토끼 악세서리",
+                Description = "너무 깜찍한 고양이 악세서리입니다",
                 Price = 50,
                 Type = 0
             });

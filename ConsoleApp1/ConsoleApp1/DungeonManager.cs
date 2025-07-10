@@ -103,7 +103,6 @@ namespace RtanRPG
             int attackFinal= Player.Instance.Attack+Player.Instance.EquipWeapon.Attack;
             int GoldEarnFinal = 1000 + Convert.ToInt32(Math.Ceiling(1000*0.01*(rand.Next(attackFinal, attackFinal * 2))));
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n쉬운 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             int beforeGold = Player.Instance.Gold;
             int beforeHealth = Player.Instance.Health;
             Player.Instance.ChangeGold(GoldEarnFinal);
@@ -111,9 +110,10 @@ namespace RtanRPG
             Player.Instance.ChangeExp(100);
             Console.WriteLine($"[탐험 결과]\r\n체력{beforeHealth} -> {Player.Instance.Health}");
             Console.WriteLine($"Gold {beforeGold} G-> {Player.Instance.Gold} G ");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             Console.ReadKey();
             LoadDungeon();
-            LoadDungeon();
+            
 
 
         }
@@ -154,7 +154,6 @@ namespace RtanRPG
             int GoldEarnFinal = 1700 + Convert.ToInt32(Math.Ceiling(2000 * 0.01 * (rand.Next(attackFinal, attackFinal * 2))));
 
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n노말 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             int beforeGold=Player.Instance.Gold;
             int beforeHealth = Player.Instance.Health;
             Player.Instance.ChangeGold(GoldEarnFinal);
@@ -162,6 +161,7 @@ namespace RtanRPG
             Player.Instance.ChangeExp(100);
             Console.WriteLine($"[탐험 결과]\r\n체력{beforeHealth} -> {Player.Instance.Health}");
             Console.WriteLine($"Gold {beforeGold} G-> {Player.Instance.Gold} G ");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             Console.ReadKey();
             LoadDungeon();
 
@@ -198,9 +198,7 @@ namespace RtanRPG
             int healthLostFinal = rand.Next(20 - defenceFinal, 35 - defenceFinal);
             int attackFinal = Player.Instance.Attack + Player.Instance.EquipWeapon.Attack;
             int GoldEarnFinal = 2500 + Convert.ToInt32(Math.Ceiling(3000 * 0.01 * (rand.Next(attackFinal, attackFinal * 2))));
-
             Console.WriteLine("던전 클리어\r\n축하합니다!!\r\n하드 던전을 클리어 하였습니다.\r\n");
-            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             int beforeGold = Player.Instance.Gold;
             int beforeHealth = Player.Instance.Health;
             Player.Instance.ChangeGold(GoldEarnFinal);
@@ -208,6 +206,7 @@ namespace RtanRPG
             Player.Instance.ChangeExp(100);
             Console.WriteLine($"[탐험 결과]\r\n체력{beforeHealth} -> {Player.Instance.Health}");
             Console.WriteLine($"Gold {beforeGold} G-> {Player.Instance.Gold} G ");
+            Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
             Console.ReadKey();
             LoadDungeon();
         }
