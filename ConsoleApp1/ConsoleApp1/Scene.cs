@@ -312,7 +312,7 @@ namespace RtanRPG
                     {
                         Console.WriteLine("여관 침대에서 잠을 청하였다");
                         Player.Instance.Health = 100;
-                        Player.Instance.Gold -= 500;
+                        Player.Instance.ChangeGold(500);
                         Console.WriteLine($"내 체력이 회복되었다. 현재 체력은 {Player.Instance.Health}, 보유 금액은{Player.Instance.Gold}이다");
                         Console.WriteLine("여관으로 돌아갑니다");
                         break;
