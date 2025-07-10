@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|c:\\myprojects\\textrpg\\consoleapp1\\consoleapp1\\scene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\scene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|c:\\myprojects\\textrpg\\consoleapp1\\consoleapp1\\dungeonmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\dungeonmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|c:\\myprojects\\textrpg\\consoleapp1\\consoleapp1\\scene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\scene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0A13C33E-5599-4AC5-9DBB-0DC8C320EEAD}|ConsoleApp1\\ConsoleApp1.csproj|c:\\myprojects\\textrpg\\consoleapp1\\consoleapp1\\infomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,17 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "DungeonManager.cs",
               "DocumentMoniker": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\ConsoleApp1\\DungeonManager.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\DungeonManager.cs",
               "ToolTip": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\ConsoleApp1\\DungeonManager.cs",
               "RelativeToolTip": "ConsoleApp1\\DungeonManager.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwGcAAAB6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHgAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T12:32:03.444Z",
               "EditorCaption": ""
@@ -62,20 +62,20 @@
               "RelativeDocumentMoniker": "ConsoleApp1\\GameManager.cs",
               "ToolTip": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\ConsoleApp1\\GameManager.cs",
               "RelativeToolTip": "ConsoleApp1\\GameManager.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAIwIoAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIoAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T10:33:37.146Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Scene.cs",
               "DocumentMoniker": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\ConsoleApp1\\Scene.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Scene.cs",
               "ToolTip": "C:\\MyProjects\\TextRPG\\ConsoleApp1\\ConsoleApp1\\Scene.cs",
               "RelativeToolTip": "ConsoleApp1\\Scene.cs",
-              "ViewState": "AgIAAOIAAAAAAAAAAAAAAPwAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPQAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T10:09:00.522Z",
               "EditorCaption": ""
