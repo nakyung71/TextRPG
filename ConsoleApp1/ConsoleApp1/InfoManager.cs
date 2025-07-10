@@ -113,6 +113,14 @@ namespace RtanRPG
             Health=func(Health);
         }//여기는 Func를 사용하여 보다 복잡한 체력관련 매커니즘을 처리하였다. int를 넣고 int를 반환하는 함수를 매개변수로 하는데, 이는 나중에 람다식으로 표현해서 넣어주었다.
 
+        public void RandomJob()
+        {
+            string[] jobs = { "전사", "마법사", "도적", "해적", "궁수" };
+            Random random = new Random();
+            int index=random.Next(0,jobs.Length);
+            Player.instance.Job=jobs[index];
+            
+        }
 
         private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 0);
         //이 부분은 지금 착용하고 있는 장비를 나타낸다. 착용여부, 그리고 부위가 맞아야 한다는 조건을 만족하는 아이템을 Find로 찾았다. 
@@ -324,7 +332,7 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 0,
                 Description = "너무 깜찍한 토끼 악세서리입니다",
-                Price = 50,
+                Price = 500,
                 Type = 0
             });
             itemList.Add(new Item
@@ -334,7 +342,7 @@ namespace RtanRPG
                 Attack = 0,
                 Defence = 0,
                 Description = "너무 깜찍한 고양이 악세서리입니다",
-                Price = 50,
+                Price = 500,
                 Type = 0
             });
 

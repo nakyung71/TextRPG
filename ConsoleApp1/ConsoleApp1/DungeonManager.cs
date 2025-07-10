@@ -54,7 +54,8 @@ namespace RtanRPG
                 Console.WriteLine("1. 쉬운 던전\t| 방어력 5 이상 권장");
                 Console.WriteLine("2. 일반 던전\t| 방어력 11 이상 권장");
                 Console.WriteLine("3. 어려운 던전\t| 방어력 17 이상 권장");
-                Console.WriteLine("4. 나가기");
+                Console.WriteLine("4. 빛나는 거울 (직업 변경)");
+                Console.WriteLine("5. 나가기");
                 Console.WriteLine(">>>");
                 while (true)
                 {
@@ -81,6 +82,11 @@ namespace RtanRPG
                             break;
                         }
                         else if (num == 4)
+                        {
+                            LoadMirrorRoom();
+                            break;
+                        }
+                        else if (num == 5)
                         {
                             Scene.LoadStartingScene();
                             break;
@@ -199,6 +205,40 @@ namespace RtanRPG
                 }
             }
         }
-       
+
+        static void LoadMirrorRoom() //도전 과제에는 없었지만 매우 간단하게 직업을 배열로 만들고+ 랜덤으로 인덱스 번호 뽑아서 랜덤으로 직업을 지정해줬다. 
+        {
+            Console.Clear();
+            Console.WriteLine("던전의 숨겨진 공간에 들어서자 수많은 거울이 당신을 비춘다.");
+            Console.WriteLine("거울에 손을 대면 강력한 힘이 당신의 직업을 바꾸게 도움을 줄 것 같다\n\n\n\n\n");
+            Console.WriteLine("직업을 바꾸시겠습니까?\n\n>>>");
+            Console.WriteLine("1. 예 2. 아니요");
+            while (true)
+            {
+                string inputKey = Console.ReadLine();
+                bool input=int.TryParse(inputKey, out int num);
+                if (num == 1)
+                {
+                    Player.Instance.RandomJob();
+                    Console.WriteLine($"\n당신의 직업이 {Player.Instance.Job} 가 되었습니다");
+                    Console.ReadKey();
+                    LoadDungeon();
+                    break;
+                }
+                else if (num == 2)
+                {
+                    LoadDungeon();
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+
+
+            }
+        }
     }
+       
+    
 }
