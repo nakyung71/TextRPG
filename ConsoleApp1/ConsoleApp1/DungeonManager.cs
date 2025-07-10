@@ -8,6 +8,8 @@ namespace RtanRPG
 {
     internal class Dungeon
     {
+        //던전을 다 각각 구성하기보다는 권장 방어력, 기본 지급 골드, 추가지급 골드, 그리고 던전 난이도 빼고는 다 동일한 요소를 가지고 있었기에
+        //던전 인스턴스를 3개 만들어 EnterDungeon()을 통해 각 인스턴스들을 관리했다. 후에 던전을 더 추가할 경우 편하게 하기 위함이다.  
         public int SuggestedDefence
             { get; set; }
         public int DefaultGold
@@ -105,6 +107,7 @@ namespace RtanRPG
 
         public void EnterDungeon()
         {
+            Console.Clear();
             int defenceFinal = Player.Instance.Defence - SuggestedDefence;
             Random rand = new Random();
             int healthLostFinal = rand.Next(20 - defenceFinal, 35 - defenceFinal);
@@ -139,7 +142,7 @@ namespace RtanRPG
                 else
                 {
                     Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
-                    Player.Instance.ScaleHealth(hp => Convert.ToInt32(Math.Ceiling(hp * 0.5)));
+                    Player.Instance.ScaleHealth(hp => Convert.ToInt32(Math.Ceiling(hp * 0.5)));//람다식을 통하여 int를 넣으면 int를 반환하는 메서드를 만들어 매개변수 func에 전달했다.
                     Console.ReadKey(true);
                     LoadDungeon();
                 }

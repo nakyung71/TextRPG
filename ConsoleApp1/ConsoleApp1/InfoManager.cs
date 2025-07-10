@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace RtanRPG
 {
     public class Player
-
+        //플레이어는 싱글톤으로 설정하였고, 특정 값들은 get set을 통하여 따로 조건을 설정하였다. 
     {
         private static Player instance;
         public static Player Instance
@@ -48,7 +48,7 @@ namespace RtanRPG
         public int Attack = 10;
         public int Defence = 5;
         private int _health = 100;
-        public int Health
+        public int Health //체력의 경우에는 최대 체력(100)이상 되지 않게 하기 위해 이렇게 하였다. 그리고 체력이 음수가 되지 않게 하였다. 
         {
             get
             {
@@ -82,7 +82,7 @@ namespace RtanRPG
         int Exp = 0;
 
 
-        private int ExpNeeded()
+        private int ExpNeeded() //예시에 1렙은 1번돌면 레벨업, 2레벨은 2번 돌면 레벨업 하라고 설정되어있어서 간단하게 이렇게 표현해봤다. 렙업을 할수록 경험치통이 늘어난다.
         {
             return 100 * Level;
         }
@@ -111,11 +111,13 @@ namespace RtanRPG
         public void ScaleHealth(Func<int,int>func)
         {
             Health=func(Health);
-        }
+        }//여기는 Func를 사용하여 보다 복잡한 체력관련 매커니즘을 처리하였다. int를 넣고 int를 반환하는 함수를 매개변수로 하는데, 이는 나중에 람다식으로 표현해서 넣어주었다.
 
 
         private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 0);
-
+        //이 부분은 지금 착용하고 있는 장비를 나타낸다. 착용여부, 그리고 부위가 맞아야 한다는 조건을 만족하는 아이템을 Find로 찾았다. 
+        //아래 ??는 왼쪽이 null이면 오른쪽을 사용하고, null이 아니면 왼쪽을 그대로 사용하는 null변합연산자 이다. 즉, 만약 장착 아이템이 null이면 그냥 기본옵션의 아이템을 return해준다
+        //그리고 만약 장착 아이템이 null이 아니면 그냥 장착아이템을 보여준다. 이렇게 한 이유는 장착을 안했을때 수많은 부분에서 null관련 오류를 일으켰기 때문이다. 
         public Item EquipAccessories
         {
             get 
@@ -154,14 +156,15 @@ namespace RtanRPG
             }
         }
 
-
+        //참조값은 자기혼자 업데이트 되지
         public void UpdateEquippedItems()
         {
             EquipAccessories = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 0);
             EquipArmor = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 1);
             EquipWeapon = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 2);
         }
-
+        //내가 아이템 리스트의 정보를 바꿔도 그 바꾼 정보가 자기 혼자 업데이트 되지는 않아서 필요한 씬마다 업데이트를 붙여서 정보를 업데이트 해주었다.
+        
 
     }
 
@@ -228,7 +231,7 @@ namespace RtanRPG
         }
 
         public List<Item> itemList = new List<Item>();
-        public ItemManager()
+        public ItemManager()  //리스트로 아이템을 관리하여 나중에 아이템을 더하고 빼더라도 편하게 할 수 있게 하였다.  type은 장비의 종류로, 같은 종류는 1개만 낄수 있게끔 구현하였다.
         {
 
 

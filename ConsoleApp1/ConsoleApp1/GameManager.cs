@@ -88,7 +88,7 @@ namespace RtanRPG
             if(isNum&&num>=1&&num<=Inventory.Instance.inventoryList.Count)
             {
                 Item foundInventory= Inventory.Instance.inventoryList[num-1];
-                int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85));
+                int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85)); //올림+형변환을 통하여 판매가격이 자료형이 int 형이 되도록 관리하였다
                 Player.Instance.ChangeGold(SoldPrice);
                 Console.WriteLine($"아이템: {foundInventory.Name}을/를 판매하였습니다");
                 Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
@@ -124,7 +124,7 @@ namespace RtanRPG
                 Console.WriteLine($"선택한 아이템: {foundEquipItem.Name}");
                 if (foundEquipItem.Type == 0)
                 {
-                    Player.Instance.EquipAccessories.IsEquipped=false;
+                    Player.Instance.EquipAccessories.IsEquipped=false; //기존에 악세서리를 착용하고 있었다면 기존 악세서리를 착용 해제하고 새 악세서리의 IsEquipped를 true로 바꾼다
                     foundEquipItem.IsEquipped = true;
                     Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
                     Console.ReadKey(true);
