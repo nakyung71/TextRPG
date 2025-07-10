@@ -109,27 +109,24 @@ namespace RtanRPG
 
 
                 Console.Write($"- {i + 1}");
-                if (b.Equip == 1)
+                if (b.IsEquipped)
                 {
                     Console.Write("[E]");
                 }
-
-                if (b.Type == 0)
+                Console.Write($"  {b.Name}  |");
+                if (b.Defence!=0)
                 {
-                    Console.WriteLine($" {b.Name} | {b.Description}");
+                    Console.Write($"  방어력 +{b.Defence}  |");
                 }
-                else if (b.Type == 1)
+                if(b.Attack!=0)
                 {
-                    Console.WriteLine($" {b.Name} | 방어력 +{b.Defence} | {b.Description}");
+                    Console.Write($"  공격력 +{ b.Attack}  |");
                 }
-                else if (b.Type == 2)
-                {
-                    Console.WriteLine($" {b.Name} | 공격력 +{b.Attack} | {b.Description}");
-                }
+                Console.Write($"  {b.Description}\n");
 
             }
 
-            Console.WriteLine("=============================================================");
+            Console.WriteLine("\n============================================================");
             Console.WriteLine($"장착된 악세서리: {Player.Instance.EquipAccessories.Name }");
             Console.WriteLine($"장착된 방어구: {Player.Instance.EquipArmor.Name}");
             Console.WriteLine($"장착된 무기: {Player.Instance.EquipWeapon.Name}");
@@ -174,24 +171,22 @@ namespace RtanRPG
             {
                 Item b = Inventory.Instance.inventoryList[i];
 
+
                 Console.Write($"- {i + 1}");
-                if(b.Equip==1)
+                if (b.IsEquipped)
                 {
                     Console.Write("[E]");
                 }
-                if (b.Type == 0)
+                Console.Write($"  {b.Name}  |");
+                if (b.Defence != 0)
                 {
-                    Console.WriteLine($" {b.Name} | {b.Description}");
+                    Console.Write($"  방어력 +{b.Defence}  |");
                 }
-                else if (b.Type == 1)
+                if (b.Attack != 0)
                 {
-                    Console.WriteLine($" {b.Name} | 방어력 +{b.Defence} | {b.Description}");
+                    Console.Write($"  공격력 +{b.Attack}  |");
                 }
-                else if (b.Type == 2)
-                {
-                    Console.WriteLine($" {b.Name} | 공격력 +{b.Attack} | {b.Description}");
-                }
-
+                Console.Write($"  {b.Description}\n");
             }
 
 
@@ -311,7 +306,7 @@ namespace RtanRPG
                     if (isPay)
                     {
                         Console.WriteLine("여관 침대에서 잠을 청하였다");
-                        Player.Instance.Health = 100;
+                        Player.Instance.ScaleHealth((int hp) => 100);
                         Player.Instance.ChangeGold(500);
                         Console.WriteLine($"내 체력이 회복되었다. 현재 체력은 {Player.Instance.Health}, 보유 금액은{Player.Instance.Gold}이다");
                         Console.WriteLine("여관으로 돌아갑니다");

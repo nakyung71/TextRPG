@@ -29,7 +29,7 @@ namespace RtanRPG
                         Inventory.Instance.AddItem(foundBuyItem);
                         foundBuyItem.IsPurchased = true;
                         Console.WriteLine($"골드가 {foundBuyItem.Price} 만큼 차감되었습니다.");
-                        Player.Instance.Gold -= foundBuyItem.Price;
+                        Player.Instance.ChangeGold( -foundBuyItem.Price);
                         Console.WriteLine("상점으로 돌아갑니다");
                         Console.ReadKey();
                         Scene.LoadShop();
@@ -67,7 +67,7 @@ namespace RtanRPG
             for(int i = 0;i<Inventory.Instance.inventoryList.Count;i++) 
             {
                 Item c=Inventory.Instance.inventoryList[i];
-                Console.Write($"{- i}");
+                Console.Write($"- {i+1}");
                 if (c.Type == 0)
                 {
                     Console.WriteLine($"  {c.Name} | {c.Description}");
@@ -89,13 +89,13 @@ namespace RtanRPG
             {
                 Item foundInventory= Inventory.Instance.inventoryList[num-1];
                 int SoldPrice=Convert.ToInt32(Math.Ceiling(foundInventory.Price * 0.85));
-                Player.Instance.Gold += SoldPrice;
+                Player.Instance.ChangeGold(SoldPrice);
                 Console.WriteLine($"아이템: {foundInventory.Name}을/를 판매하였습니다");
                 Console.WriteLine($"판매 금액: {SoldPrice} G를 획득하였습니다");
                 Console.WriteLine($"현재 보유중인 금액은 {Player.Instance.Gold} G 입니다");
-                if (foundInventory.Equip == 1)
+                if (foundInventory.IsEquipped)
                 {
-                    foundInventory.Equip = 0;
+                    foundInventory.IsEquipped = false;
                     Console.ReadKey();
                     Scene.LoadShop();
                 }
@@ -122,37 +122,31 @@ namespace RtanRPG
             {
                 Item foundEquipItem = Inventory.Instance.inventoryList[num - 1];
                 Console.WriteLine($"선택한 아이템: {foundEquipItem.Name}");
-                if (Player.Instance.EquipAccessories != null && foundEquipItem.Type == 0)
+                if (foundEquipItem.Type == 0)
                 {
-                    Player.Instance.EquipAccessories.Equip = 0;
-                    foundEquipItem.Equip = 1;
+                    Player.Instance.EquipAccessories.IsEquipped=false;
+                    foundEquipItem.IsEquipped = true;
                     Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
                     Console.ReadKey(true);
                     Scene.LoadInventory();
                 }
-                else if (Player.Instance.EquipArmor.Defence >= 1 && foundEquipItem.Type == 1)
+                else if (foundEquipItem.Type == 1)
                 {
-                    Player.Instance.EquipArmor.Equip = 0;
-                    foundEquipItem.Equip = 1;
+                    Player.Instance.EquipArmor.IsEquipped = false;
+                    foundEquipItem.IsEquipped = true;
                     Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
                     Console.ReadKey(true);
                     Scene.LoadInventory();
                 }
-                else if (Player.Instance.EquipWeapon.Attack >= 1 && foundEquipItem.Type == 2)
+                else if (foundEquipItem.Type == 2)
                 {
-                    Player.Instance.EquipWeapon.Equip = 0;
-                    foundEquipItem.Equip = 1;
+                    Player.Instance.EquipWeapon.IsEquipped = false;
+                    foundEquipItem.IsEquipped=true;
                     Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
                     Console.ReadKey(true);
                     Scene.LoadInventory();
                 }
-                else if (foundEquipItem.Equip == 0)
-                {
-                    foundEquipItem.Equip = 1;
-                    Console.WriteLine($"아이템: {foundEquipItem.Name} 을 장착하였습니다");
-                    Console.ReadKey(true);
-                    Scene.LoadInventory();
-                }
+              
             }
             else
             {
@@ -171,7 +165,7 @@ namespace RtanRPG
             if(isNum&&num>=1&&num<=Inventory.Instance.inventoryList.Count)
             {
                 Item foundUnEquipItem = Inventory.Instance.inventoryList[num - 1];
-                foundUnEquipItem.Equip = 0;
+                foundUnEquipItem.IsEquipped=false;
                 Console.WriteLine($"아이템: {foundUnEquipItem.Name} 을 장착 해지하였습니다");
                 Console.ReadKey(true);
                 Scene.LoadInventory();

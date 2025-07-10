@@ -55,7 +55,18 @@ namespace RtanRPG
                 else _health = value;
             }
         }
-        public int Gold = 1500;
+        private int _gold = 1500;
+        public int Gold
+        {
+            get
+            {
+                return _gold;
+            }
+            private set
+            { 
+            _gold = value;
+            }
+        }
         int Exp = 0;
 
 
@@ -85,13 +96,13 @@ namespace RtanRPG
             Health += health;
         }
 
-        public void SetHealth(Func<int,int>func)
+        public void ScaleHealth(Func<int,int>func)
         {
             Health=func(Health);
         }
 
 
-        private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 0);
+        private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 0);
 
         public Item EquipAccessories
         {
@@ -106,7 +117,7 @@ namespace RtanRPG
             }
 
         }
-        private Item _equipArmor = ItemManager.Instance.itemList.Find(j => j.Equip == 1 && j.Type == 1);
+        private Item _equipArmor = ItemManager.Instance.itemList.Find(j => j.IsEquipped==true && j.Type == 1);
         public Item EquipArmor
         {
             get
@@ -118,7 +129,7 @@ namespace RtanRPG
                 _equipArmor = value;
             }
         }
-        private Item _equipWeapon=ItemManager.Instance.itemList.Find(h => h.Equip == 1 && h.Type == 2);
+        private Item _equipWeapon=ItemManager.Instance.itemList.Find(h => h.IsEquipped==true && h.Type == 2);
         public Item EquipWeapon
         {
             get
@@ -134,9 +145,9 @@ namespace RtanRPG
 
         public void UpdateEquippedItems()
         {
-            EquipAccessories = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 0);
-            EquipArmor = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 1);
-            EquipWeapon = ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 2);
+            EquipAccessories = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 0);
+            EquipArmor = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 1);
+            EquipWeapon = ItemManager.Instance.itemList.Find(i => i.IsEquipped==true && i.Type == 2);
         }
 
 
@@ -178,9 +189,9 @@ namespace RtanRPG
         public int Defence = 0;
         public string Description = "";
         public int Price = 0;
-        public int Equip = 0;
         public int Type = 0;
         public int Number = 0;
+        public bool IsEquipped = false;
         public bool IsPurchased=false;
 
 
