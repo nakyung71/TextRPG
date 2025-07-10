@@ -115,9 +115,9 @@ namespace RtanRPG
             Console.WriteLine($"Gold {Player.Instance.Gold} G-> {Player.Instance.Gold+GoldEarnFinal} G ");
             Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
-            Player.Instance.Gold += GoldEarnFinal;
-            Player.Instance.Health -= healthLostFinal;
-            Player.Instance.ExpGain(100);
+            Player.Instance.ChangeGold(GoldEarnFinal); 
+            Player.Instance.ChangeHealth(- healthLostFinal);
+            Player.Instance.ChangeExp(100);
             Console.ReadKey ();
             LoadDungeon();
 
@@ -171,9 +171,9 @@ namespace RtanRPG
             Console.WriteLine($"Gold {Player.Instance.Gold} G-> {Player.Instance.Gold + GoldEarnFinal} G ");
             Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
-            Player.Instance.Gold += GoldEarnFinal;
-            Player.Instance.Health -= healthLostFinal;
-            Player.Instance.ExpGain(100);
+            Player.Instance.ChangeGold(GoldEarnFinal);
+            Player.Instance.ChangeHealth(-healthLostFinal);
+            Player.Instance.ChangeExp(100);
             Console.ReadKey();
             LoadDungeon();
 
@@ -222,9 +222,9 @@ namespace RtanRPG
             Console.WriteLine($"Gold {Player.Instance.Gold} G-> {Player.Instance.Gold + GoldEarnFinal} G ");
             Console.WriteLine("\r\n\r\n0.나가기\r\n\r\n원하시는 행동을 입력해주세요.\r\n >>");
 
-            Player.Instance.Gold += GoldEarnFinal;
-            Player.Instance.Health -= healthLostFinal;
-            Player.Instance.ExpGain(100);
+            Player.Instance.ChangeGold(GoldEarnFinal);
+            Player.Instance.ChangeHealth(-healthLostFinal);
+            Player.Instance.ChangeExp(100);
             Console.ReadKey();
             LoadDungeon();
         }

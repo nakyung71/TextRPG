@@ -29,15 +29,33 @@ namespace RtanRPG
             }
 
         }
-            
 
-        
         public string Name = "김나경";
         public string Job = "전사";
         public int Level = 1;
         public int Attack = 10;
         public int Defence = 5;
         private int _health = 100;
+        public int Health
+        {
+            get
+            {
+                return _health;
+            }
+            private set
+            {
+                if (value > 100)
+                {
+                    _health = 100;
+                }
+                else if (value <= 0)
+                {
+                    _health = 0;
+                }
+                else _health = value;
+            }
+        }
+        public int Gold = 1500;
         int Exp = 0;
 
 
@@ -46,7 +64,7 @@ namespace RtanRPG
             return 100 * Level;
         }
 
-        public void ExpGain(int exp)
+        public void ChangeExp(int exp)
         {
             Exp += exp;
             if (Exp >= ExpNeeded())
@@ -57,28 +75,22 @@ namespace RtanRPG
 
             }
         }
-
-        public int Health 
+        public void ChangeGold(int gold)
         {
-            get
-            {
-                return _health;
-            }
-            set
-            {
-                if (value > 100)
-                {
-                    _health = 100;
-                }
-                else if (value<=0)
-                {
-                    _health = 0;
-                }
-
-                else _health = value;
-            }
+            Gold += gold;
         }
-        public int Gold = 1500;
+
+        public void ChangeHealth(int health)
+        {
+            Health += health;
+        }
+
+        public void SetHealth(Func<int,int>func)
+        {
+            Health=func(Health);
+        }
+
+
         private Item _equipAccessories= ItemManager.Instance.itemList.Find(i => i.Equip == 1 && i.Type == 0);
 
         public Item EquipAccessories
@@ -92,7 +104,6 @@ namespace RtanRPG
             { 
                 _equipAccessories = value;
             }
-
 
         }
         private Item _equipArmor = ItemManager.Instance.itemList.Find(j => j.Equip == 1 && j.Type == 1);
