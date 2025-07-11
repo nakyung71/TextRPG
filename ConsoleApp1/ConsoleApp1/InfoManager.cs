@@ -45,7 +45,7 @@ namespace RtanRPG
             }
             
         }
-        public int Attack = 10;
+        public float Attack = 10;
         public int Defence = 5;
         private int _health = 100;
         public int Health //체력의 경우에는 최대 체력(100)이상 되지 않게 하기 위해 이렇게 하였다. 그리고 체력이 음수가 되지 않게 하였다. 
@@ -94,6 +94,8 @@ namespace RtanRPG
             {
                 Level += 1;
                 Exp = 0;
+                Attack += 0.5f;
+                Defence += 1;
                 Console.WriteLine($"레벨업! 플레이어의 레벨이 Lv. {Level} 이/가 되었습니다");
 
             }

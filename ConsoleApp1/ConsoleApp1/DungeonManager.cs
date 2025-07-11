@@ -10,8 +10,8 @@ namespace RtanRPG
     {
         //던전을 다 각각 구성하기보다는 권장 방어력, 기본 지급 골드, 추가지급 골드, 그리고 던전 난이도 빼고는 다 동일한 요소를 가지고 있었기에
         //던전 인스턴스를 3개 만들어 EnterDungeon()을 통해 각 인스턴스들을 관리했다. 후에 던전을 더 추가할 경우 편하게 하기 위함이다.
-        //던전을 추상 클래스로 만든 이유는, 각각의 던전(쉬움, 보통, 어려움)은 결국 권장 방어력, 기본 지급 골드, 추가 골드 제외하고는 다 공통적인 요소를 가지고 있기 때문이다.
-        //그러므로 추상클래스로 공통적인 요소를 넘기고, 동시에 달라지는 부분들만 자식 클래스에서 다르게 정리하였다. 
+        //던전을 추상 클래스로 만든 이유는, 각각의 던전(쉬움, 보통, 어려움)은 결국 권장 방어력, 기본 지급 골드, 추가 골드,던전 이름만 제외하고는 다 공통적인 요소를 가지고 있기 때문이다.
+        //그러므로 추상클래스의 상속을 사용하여 공통적인 요소를 넘기고, 동시에 달라지는 부분들만 자식 클래스에서 다르게 정리하였다. 
         public int SuggestedDefence
             { get; set; }
         public int DefaultGold
@@ -88,6 +88,7 @@ namespace RtanRPG
             {
 
                 Console.WriteLine("HP가 0이기 때문에 던전에 들어갈 수 없습니다.");
+                Console.WriteLine("메인 화면으로 돌아갑니다.");
                 Console.ReadKey();
                 Scene.LoadStartingScene();
             }
@@ -125,7 +126,7 @@ namespace RtanRPG
             int defenceFinal = Player.Instance.Defence - SuggestedDefence;
             Random rand = new Random();
             int healthLostFinal = rand.Next(20 - defenceFinal, 35 - defenceFinal);
-            int attackFinal = Player.Instance.Attack + Player.Instance.EquipWeapon.Attack;
+            int attackFinal = Convert.ToInt32(Math.Ceiling(Player.Instance.Attack + Player.Instance.EquipWeapon.Attack));
             int GoldEarnFinal = DefaultGold + Convert.ToInt32(Math.Ceiling(AdditionalGold * 0.01 * (rand.Next(attackFinal, attackFinal * 2))));
             Console.WriteLine($"던전 클리어\r\n축하합니다!!\r\n{DungeonLevel} 난이도 던전을 클리어 하였습니다.\r\n");
             int beforeGold = Player.Instance.Gold;

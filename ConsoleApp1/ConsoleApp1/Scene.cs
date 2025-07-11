@@ -6,8 +6,7 @@ namespace RtanRPG
  
     class Scene
     {
-        //스티팅 씬과 인벤토리는 후에 다른 클래스에서도 여러 방면으로 호출되어서 public으로 하였고,
-        //스태틱으로 대부분 메서드들을 구현한 이유는, 첫번쨰로 메인 메서드가 스태틱이고, 씬에 있는 메서드들은 Main과 밀접한 연관이 있는 메서드들이기 때문이다.
+   
      
         static void Main(string[] args)
         {
