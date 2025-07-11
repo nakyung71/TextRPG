@@ -76,6 +76,7 @@ namespace RtanRPG
                     }
                     else if(num==4)
                     {
+
                         Dungeon.LoadDungeon();
                         break;
                     }
@@ -97,7 +98,7 @@ namespace RtanRPG
         {
             //플레이어 클래스를 싱글톤화 해서 이를 호출하여 상태창에 플레이어 정보를 기록하였다.
             //플레이어 클래스를 싱글톤으로 설정한 이유는 이 게임은 플레이어가 여러명이 아니기 떄문이다.
-            //만약 내가 플레리어 클래스를 싱글톤화 하지 않고 실수로 Player의 인스턴스를 더 만들 경우 정보 관리가 제대로 안될 수 있다고 생각했다.
+            //만약 내가 플레이어 클래스를 싱글톤화 하지 않고 실수로 Player의 인스턴스를 더 만들 경우 정보 관리가 제대로 안될 수 있다고 생각했다.
             Console.Clear();
             Player.Instance.UpdateEquippedItems();
             Console.WriteLine("상태 보기\r\n캐릭터의 정보가 표시됩니다.\r\n\r\n");
@@ -210,7 +211,7 @@ namespace RtanRPG
             Console.WriteLine($"인벤토리 - 장착 관리\r\n보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템 목록]");
 
             //장착 관리 화면이고, 예시에서는 방어력이 0인 아이템들은 방어력을 표시 안하는 방식으로 구현이 되어있어서, if문을 통하여 이를 구련하였다
-            //그리고 착용여부를 판단하는 Item의 속성 IsEquipped를 통하여 [E]를 넣는 아이템들을 필터링하였다. 
+            //그리고 착용여부를 판단하는 Item의 속성 IsEquipped를 통하여 [E]를 넣을 아이템들을 필터링하였다. 
 
             for (int i = 0; i < Inventory.Instance.inventoryList.Count; i++)
             {

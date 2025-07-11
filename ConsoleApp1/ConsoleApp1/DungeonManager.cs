@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace RtanRPG
 {
-    internal class Dungeon
+    public abstract class Dungeon
     {
         //던전을 다 각각 구성하기보다는 권장 방어력, 기본 지급 골드, 추가지급 골드, 그리고 던전 난이도 빼고는 다 동일한 요소를 가지고 있었기에
-        //던전 인스턴스를 3개 만들어 EnterDungeon()을 통해 각 인스턴스들을 관리했다. 후에 던전을 더 추가할 경우 편하게 하기 위함이다.  
+        //던전 인스턴스를 3개 만들어 EnterDungeon()을 통해 각 인스턴스들을 관리했다. 후에 던전을 더 추가할 경우 편하게 하기 위함이다.
+        //던전을 추상 클래스로 만든 이유는, 각각의 던전(쉬움, 보통, 어려움)은 결국 권장 방어력, 기본 지급 골드, 추가 골드 제외하고는 다 공통적인 요소를 가지고 있기 때문이다.
+        //그러므로 추상클래스로 공통적인 요소를 넘기고, 동시에 달라지는 부분들만 자식 클래스에서 다르게 정리하였다. 
         public int SuggestedDefence
             { get; set; }
         public int DefaultGold
@@ -19,28 +21,10 @@ namespace RtanRPG
         public string DungeonLevel
             { get; set; }
 
-        static Dungeon dungeon1 = new Dungeon
-        {
-            SuggestedDefence = 5,
-            DefaultGold = 1000,
-            AdditionalGold = 1000,
-            DungeonLevel="쉬움"
-        };
-        static Dungeon dungeon2 = new Dungeon
-        {
-            SuggestedDefence = 11,
-            DefaultGold = 1700,
-            AdditionalGold = 2000,
-            DungeonLevel="보통"
-            
-        };
-        static Dungeon dungeon3 = new Dungeon
-        {
-            SuggestedDefence = 5,
-            DefaultGold = 2500,
-            AdditionalGold = 3000,
-            DungeonLevel = "어려움"
-        };
+
+        public static Dungeon easy=new EasyDungeon();
+        public static Dungeon normal=new NormalDungeon();
+        public static Dungeon hard=new HardDungeon();
 
 
         public static void LoadDungeon()
@@ -69,16 +53,16 @@ namespace RtanRPG
                     {
                         if (num == 1)
                         {
-                            LoadEasy();
+                            Dungeon.easy.PrepareDungeon();
                             break;
                         }
                         else if (num == 2)
                         {
-                            LoadNormal();
+                            Dungeon.normal.PrepareDungeon();
                         }
                         else if (num == 3)
                         {
-                            LoadHard();
+                           Dungeon.hard.PrepareDungeon();
                             break;
                         }
                         else if (num == 4)
@@ -100,7 +84,7 @@ namespace RtanRPG
                     }
                 }
             }
-            else 
+            else
             {
 
                 Console.WriteLine("HP가 0이기 때문에 던전에 들어갈 수 없습니다.");
@@ -111,6 +95,29 @@ namespace RtanRPG
         }
 
 
+        public void PrepareDungeon()
+        {
+            if (Player.Instance.Defence + Player.Instance.EquipArmor.Defence >= SuggestedDefence)
+            {
+                EnterDungeon();
+            }
+            else
+            {
+                Random rand = new Random();
+                int randomNumber = rand.Next(1, 11);
+                if (randomNumber <= 6)
+                {
+                    EnterDungeon();
+                }
+                else
+                {
+                    Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
+                    Player.Instance.ScaleHealth(hp => Convert.ToInt32(Math.Ceiling(hp * 0.5)));//람다식을 통하여 int를 넣으면 int를 반환하는 메서드를 만들어 매개변수 func에 전달했다.
+                    Console.ReadKey(true);
+                    LoadDungeon();
+                }
+            }
+        }
         public void EnterDungeon()
         {
             Console.Clear();
@@ -131,81 +138,6 @@ namespace RtanRPG
             Console.ReadKey();
             LoadDungeon();
         }
-        static void LoadEasy()
-        {
-            if (Player.Instance.Defence + Player.Instance.EquipArmor.Defence >= 5)
-            {
-                dungeon1.EnterDungeon();
-            }
-            else
-            {
-                Random rand = new Random();
-                int randomNumber = rand.Next(1, 11);
-                if (randomNumber <= 6)
-                {
-                    dungeon1.EnterDungeon();
-                }
-                else
-                {
-                    Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
-                    Player.Instance.ScaleHealth(hp => Convert.ToInt32(Math.Ceiling(hp * 0.5)));//람다식을 통하여 int를 넣으면 int를 반환하는 메서드를 만들어 매개변수 func에 전달했다.
-                    Console.ReadKey(true);
-                    LoadDungeon();
-                }
-            }
-        }
-
-
-        static void LoadNormal()
-        {
-            if (Player.Instance.Defence + Player.Instance.EquipArmor.Defence >= 11)
-            {
-                dungeon2.EnterDungeon();
-            }
-            else
-            {
-                Random rand = new Random();
-                int randomNumber = rand.Next(1, 11);
-                if (randomNumber <= 6)
-                {
-                    dungeon2.EnterDungeon(); 
-                }
-                else
-                {
-                    Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
-                    Player.Instance.ScaleHealth(hp=>Convert.ToInt32(Math.Ceiling(hp * 0.5)));
-                    Console.ReadKey(true);
-                    LoadDungeon();
-                }
-            }
-
-        }
-
-        static void LoadHard()
-        {
-            if (Player.Instance.Defence + Player.Instance.EquipArmor.Defence >= 17)
-            {
-                dungeon3.EnterDungeon();
-            }
-            else
-            {
-                Random rand = new Random();
-                int randomNumber = rand.Next(1, 11);
-                if (randomNumber <= 6)
-                {
-                    dungeon3.EnterDungeon();
-                }
-                else
-                {
-                    Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
-                 
-                    Player.Instance.ScaleHealth((int hp) => Convert.ToInt32(Math.Ceiling(hp * 0.5)));
-                    Console.ReadKey(true);
-                    LoadDungeon();
-                }
-            }
-        }
-
         static void LoadMirrorRoom() //도전 과제에는 없었지만 매우 간단하게 직업을 배열로 만들고+ 랜덤으로 인덱스 번호 뽑아서 랜덤으로 직업을 지정해줬다. 
         {
             Console.Clear();
@@ -216,7 +148,7 @@ namespace RtanRPG
             while (true)
             {
                 string inputKey = Console.ReadLine();
-                bool input=int.TryParse(inputKey, out int num);
+                bool input = int.TryParse(inputKey, out int num);
                 if (num == 1)
                 {
                     Player.Instance.RandomJob();
@@ -238,7 +170,56 @@ namespace RtanRPG
 
             }
         }
+
     }
+
+    class EasyDungeon:Dungeon
+    {
+        public EasyDungeon()
+        {
+            SuggestedDefence = 5;
+            DefaultGold = 1000;
+            AdditionalGold = 1000;
+            DungeonLevel = "쉬움";
+        }
+    }
+    class NormalDungeon:Dungeon
+    {
+       public NormalDungeon()
+        {
+            SuggestedDefence = 11;
+            DefaultGold = 1700;
+            AdditionalGold = 2000;
+            DungeonLevel = "보통";
+        }
+    }
+    class HardDungeon:Dungeon
+    {
+        public HardDungeon()
+        {
+            SuggestedDefence = 17;
+            DefaultGold = 2500;
+            AdditionalGold = 3000;
+            DungeonLevel = "어려움";
+        }
+    }
+        
+        
+        
+
+
+        
+
+
+       
+
+
+        
+
+        
+
+       
+    
        
     
 }
