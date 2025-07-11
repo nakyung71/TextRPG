@@ -111,6 +111,7 @@ namespace RtanRPG
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("던전 탐험에 실패하였습니다\nHP가 절반으로 감소합니다");
                     Player.Instance.ScaleHealth(hp => Convert.ToInt32(Math.Ceiling(hp * 0.5)));//람다식을 통하여 int를 넣으면 int를 반환하는 메서드를 만들어 매개변수 func에 전달했다.
                     Console.ReadKey(true);
